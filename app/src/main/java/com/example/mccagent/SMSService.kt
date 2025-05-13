@@ -23,7 +23,7 @@ class SMSService : Service() {
 
     override fun onCreate() {
         super.onCreate()
-        //createNotificationChannel()
+        createNotificationChannel()
 
         val notification = NotificationCompat.Builder(this, CHANNEL_ID)
             .setContentTitle("MCC Agent activo")
