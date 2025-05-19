@@ -10,25 +10,28 @@ import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
-import androidx.core.content.ContextCompat
-import com.example.mccagent.ui.theme.MCCAgentTheme
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.core.view.WindowCompat
-import androidx.compose.ui.tooling.preview.Preview
+import com.example.mccagent.services.SMSService
 import com.example.mccagent.ui.screens.AppNavigation
-
+import com.example.mccagent.ui.theme.MCCAgentTheme
+import android.util.Log
 
 class MainActivity : ComponentActivity() {
     private val permisos = arrayOf(
         Manifest.permission.SEND_SMS,
-        Manifest.permission.FOREGROUND_SERVICE
+        Manifest.permission.RECEIVE_SMS,
+        Manifest.permission.READ_SMS,
+        Manifest.permission.READ_PHONE_STATE
     )
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         WindowCompat.setDecorFitsSystemWindows(window, false)
-
 
         requestPermissionsIfNeeded()
 
@@ -38,6 +41,7 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
+
     private fun requestPermissionsIfNeeded() {
         val notGranted = permisos.filter {
             ContextCompat.checkSelfPermission(this, it) != PackageManager.PERMISSION_GRANTED
@@ -61,6 +65,7 @@ class MainActivity : ComponentActivity() {
     }
 
     private fun iniciarServicioSMS() {
+        Log.d("MainActivity", "🚀 Iniciando servicio SMS")
         val intent = Intent(this, SMSService::class.java)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             startForegroundService(intent)
@@ -70,17 +75,16 @@ class MainActivity : ComponentActivity() {
     }
 
     fun handleLogout(context: Context) {
-        // Limpiar el token
+
         val prefs = context.getSharedPreferences("mcc_prefs", Context.MODE_PRIVATE)
         prefs.edit().remove("token").apply()
 
-        // Detener el servicio
+
         val stopIntent = Intent(context, SMSService::class.java)
         context.stopService(stopIntent)
 
-        // Navegar a login (si usás navegación programática)
-    }
 
+    }
 }
 
 @Composable
@@ -90,6 +94,3 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
         modifier = modifier
     )
 }
-
-
-

@@ -5,7 +5,7 @@ import android.content.Intent
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.*
 import com.example.mccagent.MainActivity
-import com.example.mccagent.SMSService
+import com.example.mccagent.services.SMSService
 
 @Composable
 fun AppNavigation(context: Context) {

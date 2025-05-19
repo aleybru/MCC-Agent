@@ -74,6 +74,11 @@ dependencies {
     implementation("androidx.compose.ui:ui")
     implementation("androidx.compose.ui:ui-text:1.6.5")
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.2")
+    implementation ("com.squareup.okhttp3:logging-interceptor:4.12.0")
+
+    implementation ("androidx.core:core-ktx:1.12.0")
+    implementation("com.google.accompanist:accompanist-swiperefresh:0.33.2-alpha")
+
 
     configurations.all {
         exclude(group = "com.google.guava", module = "listenablefuture")

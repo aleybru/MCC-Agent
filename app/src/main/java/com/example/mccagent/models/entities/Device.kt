@@ -7,7 +7,7 @@ data class Device(
     val imei: String,
     val phone: String,
     val platform: String,
-    val client: Client,
+    val client: String,
     val notes: String,
     val status: Boolean
 )

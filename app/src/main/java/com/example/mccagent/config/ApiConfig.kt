@@ -10,7 +10,7 @@ object ApiConfig {
 
     val BASE_URL: String
         get() = when (currentEnv) {
-            Environment.DEV -> "http://192.168.8.151:5000/api/"
+            Environment.DEV -> "http://192.168.1.16:5000/api/"
             Environment.PROD -> "https://tu-backend-real.com/api/"
         }
 }
